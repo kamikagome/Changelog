@@ -7,7 +7,6 @@ import { CommitInfo } from './types';
 export async function isGitRepository(repoPath: string): Promise<boolean> {
   const git: SimpleGit = simpleGit(repoPath);
   try {
-    await git.checkIsRepo();
     return await git.checkIsRepo();
   } catch {
     return false;
