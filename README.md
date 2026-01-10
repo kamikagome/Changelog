@@ -8,6 +8,7 @@
 
 **Generate plain-English changelogs from git history using Claude AI.**
 
+Bridge the gap between engineering and business stakeholders.
 Transform cryptic commit messages into clear, readable updates that anyone on your team can understand.
 
 ---
