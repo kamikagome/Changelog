@@ -33,18 +33,23 @@ export function formatMarkdown(
   lines.push('');
 
   // Sections
-  for (const section of sections) {
-    if (section.items.length === 0) continue;
+  const nonEmptySections = sections.filter((s) => s.items.length > 0);
 
-    const emoji = CATEGORY_EMOJIS[section.category];
-    const header = CATEGORY_HEADERS[section.category];
-    lines.push(`## ${emoji} ${header}`);
+  if (nonEmptySections.length === 0) {
+    lines.push('*No significant changes to report in this period.*');
     lines.push('');
+  } else {
+    for (const section of nonEmptySections) {
+      const emoji = CATEGORY_EMOJIS[section.category];
+      const header = CATEGORY_HEADERS[section.category];
+      lines.push(`## ${emoji} ${header}`);
+      lines.push('');
 
-    for (const item of section.items) {
-      lines.push(`- ${item}`);
+      for (const item of section.items) {
+        lines.push(`- ${item}`);
+      }
+      lines.push('');
     }
-    lines.push('');
   }
 
   // Footer
@@ -90,18 +95,22 @@ export function formatHTML(
   lines.push('  </div>');
 
   // Sections
-  for (const section of sections) {
-    if (section.items.length === 0) continue;
+  const nonEmptySections = sections.filter((s) => s.items.length > 0);
 
-    const emoji = CATEGORY_EMOJIS[section.category];
-    const header = CATEGORY_HEADERS[section.category];
-    lines.push(`  <h2>${emoji} ${header}</h2>`);
-    lines.push('  <ul>');
+  if (nonEmptySections.length === 0) {
+    lines.push('  <p><em>No significant changes to report in this period.</em></p>');
+  } else {
+    for (const section of nonEmptySections) {
+      const emoji = CATEGORY_EMOJIS[section.category];
+      const header = CATEGORY_HEADERS[section.category];
+      lines.push(`  <h2>${emoji} ${header}</h2>`);
+      lines.push('  <ul>');
 
-    for (const item of section.items) {
-      lines.push(`    <li>${escapeHtml(item)}</li>`);
+      for (const item of section.items) {
+        lines.push(`    <li>${escapeHtml(item)}</li>`);
+      }
+      lines.push('  </ul>');
     }
-    lines.push('  </ul>');
   }
 
   // Footer

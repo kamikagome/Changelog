@@ -72,11 +72,15 @@ async function run(options: CLIOptions): Promise<void> {
   console.log(chalk.dim(`Period: ${dateRange.start} → ${dateRange.end}`));
 
   // Summarize with Claude
-  const summarizeSpinner = ora('Summarizing with Claude AI...').start();
+  const summarizeSpinner = ora(`Summarizing ${commits.length} commits with Claude AI...`).start();
   let sections;
   try {
     sections = await summarizeCommits(commits, options.audience);
-    summarizeSpinner.succeed('Summary generated');
+    const counts = sections
+      .filter((s) => s.items.length > 0)
+      .map((s) => `${s.items.length} ${s.category}`)
+      .join(', ');
+    summarizeSpinner.succeed(`Summary generated (${counts})`);
   } catch (error) {
     summarizeSpinner.fail('Failed to generate summary');
     throw error;

@@ -1,0 +1,24 @@
+# Source files (dist is published)
+src/
+
+# Documentation
+docs/
+CLAUDE.md
+
+# Development
+.env
+.env.example
+tsconfig.json
+examples/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+*.log
+.DS_Store
